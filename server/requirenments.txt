@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+websockets
+faster-whisper
+groq
+firebase-admin
+pydub
+python-dotenv
