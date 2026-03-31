@@ -47,3 +47,5 @@ htmlcov/
 # Editor-specific
 .idea/
 .vscode/
+
+.env*
