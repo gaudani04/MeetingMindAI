@@ -48,5 +48,6 @@ htmlcov/
 .idea/
 .vscode/
 
-.env*
-.env
+server/.env
+server/serviceAccountKey.json
+client/.env.local
