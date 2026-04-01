@@ -1,10 +1,18 @@
+
+'use client';
 import { useState } from 'react';
 import axios from 'axios';
 import useAudioWebSocket from '../hooks/useAudioWebSocket';
 import { Mic, Upload, Square, Download, MessageSquare } from 'lucide-react';
 
 export default function Dashboard() {
-  const { isRecording, transcript: liveTranscript, startRecording, stopRecording } = useAudioWebSocket();
+  const {
+    isRecording,
+    transcript: liveTranscript,
+    summaries,
+    startRecording,
+    stopRecording
+  } = useAudioWebSocket();
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [meetingData, setMeetingData] = useState(null);
@@ -24,6 +32,19 @@ export default function Dashboard() {
       console.error(err);
     }
     setLoading(false);
+  };
+
+  const handleInterviewHelp = async () => {
+    try {
+      const res = await axios.post("http://localhost:8000/api/ask", {
+        transcript: liveTranscript,
+        question: "What should I answer?"
+      });
+
+      alert(res.data.answer);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleChat = async () => {
@@ -59,27 +80,49 @@ export default function Dashboard() {
 
       {!meetingData ? (
         <div className="grid md:grid-cols-2 gap-8">
-          {/* Real-time Panel */}
+          {/* Left Column: Real-time Panel */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <h2 className="text-xl font-semibold mb-4">Live Meeting</h2>
-            <button 
+            <button
               onClick={isRecording ? stopRecording : startRecording}
               className={`w-full py-4 rounded-lg flex items-center justify-center gap-2 font-medium text-white transition-colors ${isRecording ? 'bg-red-500 hover:bg-red-600' : 'bg-blue-600 hover:bg-blue-700'}`}
             >
-              {isRecording ? <><Square size={20}/> Stop Recording</> : <><Mic size={20}/> Start Recording</>}
+              {isRecording ? <><Square size={20} /> Stop Recording</> : <><Mic size={20} /> Start Recording</>}
             </button>
+
             <div className="mt-6 bg-gray-100 rounded-lg p-4 h-64 overflow-y-auto">
               <p className="text-gray-600 whitespace-pre-wrap">{liveTranscript || "Transcript will appear here..."}</p>
             </div>
+
+            {/* Moved inside the parent div to maintain grid structure */}
+            <div className="mt-4 bg-blue-50 rounded-lg p-4 h-40 overflow-y-auto">
+              <h3 className="font-semibold text-blue-700 mb-2">Live Summary</h3>
+              {summaries.length === 0 ? (
+                <p className="text-gray-400 text-sm">Summaries will appear here...</p>
+              ) : (
+                <ul className="text-sm text-gray-700 space-y-1">
+                  {summaries.map((s, i) => (
+                    <li key={i}>• {s}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+
+            <button
+              onClick={handleInterviewHelp}
+              className="mt-4 w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+            >
+              Suggest Answer
+            </button>
           </div>
 
-          {/* Upload Panel */}
+          {/* Right Column: Upload Panel */}
           <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
             <h2 className="text-xl font-semibold mb-4">Upload Audio/Video</h2>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center flex flex-col items-center justify-center gap-4">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-10 text-center flex flex-col items-center justify-center gap-4 h-full">
               <Upload size={32} className="text-gray-400" />
               <input type="file" onChange={(e) => setFile(e.target.files[0])} accept="audio/*,video/*" className="text-sm text-gray-500" />
-              <button 
+              <button
                 onClick={handleUpload}
                 disabled={!file || loading}
                 className="mt-4 bg-gray-900 text-white px-6 py-2 rounded-lg hover:bg-gray-800 disabled:opacity-50"
@@ -98,7 +141,7 @@ export default function Dashboard() {
                 <h2 className="text-2xl font-bold">{meetingData.insights.title}</h2>
                 <button onClick={exportText} className="text-blue-600 hover:text-blue-800 flex items-center gap-1"><Download size={18} /> Export</button>
               </div>
-              
+
               <h3 className="font-semibold text-lg mt-4 mb-2">Summary</h3>
               <ul className="list-disc pl-5 space-y-1 text-gray-700 mb-6">
                 {meetingData.insights.summary.map((s, i) => <li key={i}>{s}</li>)}
@@ -145,12 +188,12 @@ export default function Dashboard() {
               ))}
             </div>
             <div className="flex gap-2">
-              <input 
-                type="text" 
-                value={chatQ} 
-                onChange={(e) => setChatQ(e.target.value)} 
+              <input
+                type="text"
+                value={chatQ}
+                onChange={(e) => setChatQ(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleChat()}
-                placeholder="Ask a question..." 
+                placeholder="Ask a question..."
                 className="flex-1 border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:border-blue-500"
               />
               <button onClick={handleChat} className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800">Ask</button>

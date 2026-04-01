@@ -2,11 +2,26 @@ from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from services.transcriber import transcribe_audio_file
 from services.llm import generate_meeting_insights, chat_with_notes
 from utils.firebase_db import save_meeting, get_meeting
+from services.assistant_service import get_answer
+from pydantic import BaseModel
 import tempfile
 import uuid
 import os
 
 router = APIRouter()
+
+class AskRequest(BaseModel):
+    transcript: str
+    question: str
+
+
+@router.post("/ask")
+async def ask_ai(req: AskRequest):
+    answer = await get_answer(
+        context=req.transcript[-1000:],  # limit tokens
+        question=req.question
+    )
+    return {"answer": answer}
 
 @router.post("/upload")
 async def upload_audio(file: UploadFile = File(...)):

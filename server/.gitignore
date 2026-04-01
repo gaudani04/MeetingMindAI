@@ -1,0 +1,63 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+# The virtual environment folder should be ignored, but you should track
+# the requirements.txt or equivalent lock file (Pipfile.lock, poetry.lock, etc.)
+# so others can recreate the environment.
+venv/
+env/
+.venv/
+.env/
+lib/
+lib64/
+include/
+bin/
+share/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Distribution / packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Unit test and coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# IDEs and editors
+# VS Code
+.vscode/
+# PyCharm
+.idea/
+
+# OS-specific files
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Python-specific files
+# Jupyter Notebook checkpoint files
+.ipynb_checkpoints
+
+# Logs and databases
+*.log
+*.sqlite3 # commonly used in Django during development
+
+*serviceAccountKey.json
