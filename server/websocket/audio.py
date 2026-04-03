@@ -170,7 +170,10 @@ async def websocket_endpoint(websocket: WebSocket):
         sample_rate=16000, 
         interim_results=True,
         punctuate=True,
+         # added later
+         diarize=True,
     )
+   
 
     if dg_connection.start(options) is False:
         print("Failed to start Deepgram connection")

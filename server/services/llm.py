@@ -8,12 +8,28 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def generate_meeting_insights(transcript: str):
     prompt = f"""
-    You are a business analyst. Convert the transcript into structured meeting insights.
-    Be concise and return strict JSON with the following keys:
-    "title", "summary" (array of strings), "action_items" (array of objects with "task", "owner", "deadline"), "key_insights" (array), "risks" (array).
-    
-    Transcript: {transcript}
-    """
+You are a strict meeting analysis engine.
+
+Your job is to extract structured insights from a meeting transcript.
+
+IMPORTANT RULES:
+- Do NOT guess or assume missing information
+- Do NOT say phrases like "it seems", "you mentioned", "you are asking"
+- Only extract what is explicitly said
+- Be concise and factual
+- If something is not present, return empty array []
+- Output MUST be valid JSON only (no extra text)
+
+Return JSON with:
+- "title": short meeting title
+- "summary": array of key discussion points
+- "action_items": array of objects with "task", "owner", "deadline"
+- "key_insights": important observations
+- "risks": problems or blockers mentioned
+
+Transcript:
+{transcript}
+"""
     completion = client.chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[{"role": "user", "content": prompt}],
