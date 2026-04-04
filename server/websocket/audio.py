@@ -97,9 +97,9 @@ from services.summary_service import generate_live_summary
 router = APIRouter()
 
 DG_API_KEY = os.getenv("DEEPGRAM_API_KEY")
-print(DG_API_KEY)
+# print(DG_API_KEY)
 if not DG_API_KEY:
-    raise Exception("DEEPGRAM_API_KEY not set in environment")
+    print("⚠️ DEEPGRAM_API_KEY not set")
 
 dg_client = DeepgramClient(DG_API_KEY)
 
@@ -111,8 +111,8 @@ async def websocket_endpoint(websocket: WebSocket):
     dg_connection = dg_client.listen.live.v("1")
     transcript_buffer = []
 
-    loop = asyncio.get_event_loop()  # 👈 needed for async calls inside sync handler
-
+    # loop = asyncio.get_event_loop()  # 👈 needed for async calls inside sync handler
+    loop = asyncio.get_running_loop()
     # ✅ FIX 1: make this NORMAL function (not async)
     def on_message(self, result, **kwargs):
         try:
@@ -181,7 +181,8 @@ async def websocket_endpoint(websocket: WebSocket):
 
     try:
         while True:
-            data = await websocket.receive_bytes()
+            # data = await websocket.receive_bytes()
+            data = await asyncio.wait_for(websocket.receive_bytes(), timeout=60)
 
             if data == b"STOP":
                 break
