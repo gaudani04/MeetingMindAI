@@ -53,44 +53,49 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    background-color: transparent !important;
+    /* @apply bg-background text-foreground antialiased; */
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
 @layer utilities {
   .bg-page-gradient {
     background:
-      radial-gradient(
-        ellipse 1400px 700px at 0% -15%,
+      radial-gradient(ellipse 1400px 700px at 0% -15%,
         hsl(252 59% 52% / 0.11),
-        transparent 55%
-      ),
-      radial-gradient(
-        ellipse 1000px 500px at 100% 0%,
+        transparent 55%),
+      radial-gradient(ellipse 1000px 500px at 100% 0%,
         hsl(280 65% 55% / 0.09),
-        transparent 50%
-      ),
-      radial-gradient(
-        ellipse 800px 400px at 50% 100%,
+        transparent 50%),
+      radial-gradient(ellipse 800px 400px at 50% 100%,
         hsl(210 90% 55% / 0.06),
-        transparent 45%
-      ),
+        transparent 45%),
       hsl(var(--background));
   }
 
   .dark .bg-page-gradient {
     background:
-      radial-gradient(
-        ellipse 1200px 600px at 10% -10%,
+      radial-gradient(ellipse 1200px 600px at 10% -10%,
         hsl(258 55% 45% / 0.22),
-        transparent 55%
-      ),
-      radial-gradient(
-        ellipse 900px 450px at 95% 5%,
+        transparent 55%),
+      radial-gradient(ellipse 900px 450px at 95% 5%,
         hsl(280 50% 40% / 0.15),
-        transparent 50%
-      ),
+        transparent 50%),
       hsl(var(--background));
+  }
+
+  .drag-region {
+    -webkit-app-region: drag;
+    /* Prevent text selection while dragging */
+    user-select: none;
+  }
+
+  .no-drag {
+    -webkit-app-region: no-drag;
   }
 
   .glass-panel {
@@ -109,13 +114,12 @@
     @apply bg-gradient-to-r from-[hsl(252,59%,48%)] via-[hsl(280,55%,52%)] to-[hsl(210,90%,52%)] bg-clip-text text-transparent dark:from-[hsl(258,65%,72%)] dark:via-[hsl(280,60%,68%)] dark:to-[hsl(210,85%,65%)];
   }
 
+
   .shimmer {
-    background: linear-gradient(
-      90deg,
-      hsl(var(--muted)) 0%,
-      hsl(var(--muted-foreground) / 0.12) 50%,
-      hsl(var(--muted)) 100%
-    );
+    background: linear-gradient(90deg,
+        hsl(var(--muted)) 0%,
+        hsl(var(--muted-foreground) / 0.12) 50%,
+        hsl(var(--muted)) 100%);
     background-size: 200% 100%;
     animation: shimmer 1.4s ease-in-out infinite;
   }
@@ -124,6 +128,7 @@
     0% {
       background-position: 200% 0;
     }
+
     100% {
       background-position: -200% 0;
     }
