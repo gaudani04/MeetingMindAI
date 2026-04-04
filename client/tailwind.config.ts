@@ -63,7 +63,14 @@ const config: Config = {
         soft: "0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.05)",
         "soft-lg":
           "0 12px 48px -12px rgb(15 23 42 / 0.12), 0 6px 16px -6px rgb(15 23 42 / 0.08)",
-        glow: "0 0 40px -8px hsl(252 59% 52% / 0.35)",
+        glow: "0 0 44px -8px hsl(187 90% 45% / 0.38)",
+        "glow-lg":
+          "0 0 56px -10px hsl(187 85% 48% / 0.42), 0 24px 48px -24px rgb(15 23 42 / 0.22)",
+        inner: "inset 0 1px 0 0 rgb(255 255 255 / 0.06)",
+      },
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
+        spring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
       },
       keyframes: {
         "fade-in": {
@@ -82,12 +89,42 @@ const config: Config = {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.65" },
         },
+        "slide-up": {
+          from: { opacity: "0", transform: "translateY(12px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
+        aurora: {
+          "0%, 100%": {
+            opacity: "0.55",
+            transform: "translate(0, 0) scale(1)",
+          },
+          "33%": {
+            opacity: "0.75",
+            transform: "translate(2%, -3%) scale(1.03)",
+          },
+          "66%": {
+            opacity: "0.65",
+            transform: "translate(-3%, 2%) scale(0.98)",
+          },
+        },
+        "gradient-x": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
-        "fade-in": "fade-in 0.35s ease-out",
-        "scale-in": "scale-in 0.28s cubic-bezier(0.16,1,0.3,1)",
+        "fade-in": "fade-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "scale-in": "scale-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "slide-up": "slide-up 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         float: "float 5s ease-in-out infinite",
         "pulse-soft": "pulse-soft 2.5s ease-in-out infinite",
+        shimmer: "shimmer 1.5s ease-in-out infinite",
+        aurora: "aurora 14s ease-in-out infinite",
+        "gradient-x": "gradient-x 8s ease infinite",
       },
     },
   },

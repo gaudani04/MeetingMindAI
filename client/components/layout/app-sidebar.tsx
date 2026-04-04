@@ -29,22 +29,25 @@ export function AppSidebar() {
 
   function handleLogout() {
     logout();
-    router.push("/login");
+    router.push("/landing");
     router.refresh();
   }
 
   return (
-    <aside className="glass-sidebar flex h-full w-64 shrink-0 flex-col">
+    <aside className="relative z-10 flex h-full w-64 shrink-0 flex-col glass-sidebar">
       <div className="flex items-center gap-3 px-5 py-6">
-        <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-primary via-violet-500 to-sky-500 text-primary-foreground shadow-glow transition-transform duration-300 hover:scale-105">
-          <MessageSquare className="h-5 w-5" aria-hidden />
-        </div>
+        <Link
+          href="/"
+          className="flex h-11 w-11 items-center justify-center rounded-2xl border border-cyan-500/35 bg-gradient-to-br from-slate-700/90 to-slate-900 text-white shadow-glow transition-transform duration-300 hover:scale-105 dark:border-cyan-400/30 dark:from-cyan-950/80 dark:to-slate-950"
+        >
+          <MessageSquare className="h-5 w-5 text-cyan-300" aria-hidden />
+        </Link>
         <div>
           <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-            Smart
+            Workspace
           </p>
           <p className="font-display text-base font-bold leading-tight tracking-tight">
-            Meeting Notes AI
+            MeetingMind<span className="text-primary">AI</span>
           </p>
         </div>
       </div>
@@ -60,10 +63,10 @@ export function AppSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ease-out outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-transparent",
                 active
-                  ? "bg-gradient-to-r from-primary/15 to-violet-500/10 text-primary shadow-soft dark:from-primary/25 dark:to-violet-500/15"
-                  : "text-muted-foreground hover:bg-white/50 hover:text-foreground dark:hover:bg-white/5"
+                  ? "bg-gradient-to-r from-primary/15 to-cyan-500/10 text-primary shadow-soft dark:from-primary/20 dark:to-cyan-500/10"
+                  : "text-muted-foreground hover:bg-white/60 hover:text-foreground dark:hover:bg-white/5"
               )}
             >
               <Icon
@@ -75,13 +78,13 @@ export function AppSidebar() {
               />
               {item.label}
               {active && (
-                <span className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gradient-to-b from-primary to-violet-500 shadow-glow" />
+                <span className="absolute left-0 top-1/2 h-6 w-1 -translate-y-1/2 rounded-r-full bg-gradient-to-b from-cyan-400 to-blue-500 shadow-glow" />
               )}
             </Link>
           );
         })}
       </nav>
-      <div className="mx-3 mb-3 rounded-xl border border-dashed border-primary/20 bg-gradient-to-br from-primary/5 to-transparent p-3 text-xs text-muted-foreground dark:from-primary/10">
+      <div className="mx-3 mb-3 rounded-xl border border-dashed border-cyan-500/25 bg-gradient-to-br from-cyan-500/5 to-transparent p-3 text-xs text-muted-foreground dark:from-cyan-500/10">
         <p className="font-display font-semibold text-foreground">Pro tip</p>
         <p className="mt-1.5 leading-relaxed">
           Share a browser tab with Zoom or YouTube audio plus your mic for

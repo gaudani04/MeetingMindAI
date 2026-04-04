@@ -1,5 +1,6 @@
 "use client";
 
+import { PageHeader } from "@/components/layout/page-header";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -8,16 +9,12 @@ import { API_BASE, WS_TRANSCRIBE } from "@/lib/config";
 export default function SettingsPage() {
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
-          Settings
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          Appearance and connection details for your workspace.
-        </p>
-      </div>
+      <PageHeader
+        title="Settings"
+        description="Appearance and connection details for your workspace."
+      />
 
-      <Card>
+      <Card className="glass-card">
         <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <CardTitle className="text-lg">Appearance</CardTitle>
@@ -29,7 +26,7 @@ export default function SettingsPage() {
         </CardHeader>
       </Card>
 
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle className="text-lg">API &amp; realtime</CardTitle>
           <CardDescription>

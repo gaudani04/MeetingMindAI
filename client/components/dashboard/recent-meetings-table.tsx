@@ -52,7 +52,7 @@ export function RecentMeetingsTable({
   if (rows.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border/80 bg-muted/20 px-6 py-16 text-center">
-        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-violet-500/20 text-primary">
+        <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-cyan-500/15 to-blue-600/15 text-primary">
           <Inbox className="h-7 w-7 opacity-80" />
         </div>
         <p className="font-display text-lg font-semibold text-foreground">
@@ -84,7 +84,7 @@ export function RecentMeetingsTable({
         {rows.map((m) => (
           <TableRow
             key={m.id}
-            className="transition-colors duration-200 hover:bg-primary/[0.04]"
+            className="transition-colors duration-200 ease-out hover:bg-primary/[0.05]"
           >
             <TableCell className="font-medium">{m.insights.title}</TableCell>
             <TableCell className="hidden sm:table-cell text-muted-foreground">

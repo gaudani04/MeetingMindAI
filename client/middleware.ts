@@ -14,6 +14,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
+  if (pathname === "/landing") {
+    return NextResponse.next();
+  }
+
   if (pathname === "/login" || pathname === "/signup") {
     const authed = request.cookies.get(AUTH_COOKIE)?.value;
     if (authed) {
@@ -24,7 +28,7 @@ export function middleware(request: NextRequest) {
 
   const authed = request.cookies.get(AUTH_COOKIE)?.value;
   if (!authed) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL("/landing", request.url));
   }
 
   return NextResponse.next();

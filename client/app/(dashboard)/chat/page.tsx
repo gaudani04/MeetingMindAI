@@ -1,5 +1,6 @@
 "use client";
 
+import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -150,7 +151,7 @@ export default function ChatAssistantPage() {
         </p>
       ) : null}
 
-      <Card className="flex flex-1 flex-col overflow-hidden border-border/80 shadow-soft-lg">
+      <Card className="glass-card flex flex-1 flex-col overflow-hidden border-border/80 shadow-soft-lg">
         <ScrollArea className="h-[min(60vh,560px)] p-4">
           <div className="flex flex-col gap-4">
             {messages.length === 0 && (

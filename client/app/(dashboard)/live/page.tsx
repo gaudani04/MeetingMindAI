@@ -90,7 +90,7 @@ export default function LiveMeetingPage() {
                 className={`relative h-40 w-40 rounded-full shadow-glow transition-all duration-300 hover:scale-[1.04] active:scale-[0.96] ${
                   isRecording
                     ? ""
-                    : "bg-gradient-to-br from-primary via-violet-600 to-sky-500 hover:shadow-soft-lg"
+                    : "bg-gradient-to-br from-cyan-600 via-sky-500 to-blue-600 hover:shadow-soft-lg"
                 }`}
                 onClick={isRecording ? stopRecording : startRecording}
                 aria-pressed={isRecording}
@@ -136,7 +136,7 @@ export default function LiveMeetingPage() {
         </Card>
 
         <div className="flex flex-col gap-4">
-          <Card className="border-white/35 bg-gradient-to-br from-violet-500/10 to-transparent backdrop-blur-md dark:from-violet-500/15">
+          <Card className="border-white/35 bg-gradient-to-br from-cyan-500/10 to-transparent backdrop-blur-md dark:from-cyan-500/12">
             <CardHeader className="pb-2">
               <CardTitle className="flex items-center gap-2 font-display text-base">
                 <MonitorPlay className="h-4 w-4 text-primary" />
@@ -209,7 +209,7 @@ export default function LiveMeetingPage() {
                 summaries.map((s, i) => (
                   <div
                     key={`${i}-${s.slice(0, 12)}`}
-                    className="animate-scale-in rounded-xl border border-white/40 bg-gradient-to-br from-card to-violet-500/10 p-4 text-sm shadow-soft dark:border-white/10 dark:to-violet-500/15"
+                    className="animate-scale-in rounded-xl border border-white/40 bg-gradient-to-br from-card to-cyan-500/10 p-4 text-sm shadow-soft dark:border-white/10 dark:to-cyan-500/12"
                   >
                     <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-primary">
                       <Sparkles className="h-3.5 w-3.5" />
@@ -222,7 +222,7 @@ export default function LiveMeetingPage() {
             </div>
 
             {(lastQuestion || lastAnswerSuggestion) && (
-              <div className="space-y-2 rounded-xl border border-violet-500/25 bg-violet-500/5 p-3 text-sm dark:bg-violet-500/10">
+              <div className="space-y-2 rounded-xl border border-cyan-500/25 bg-cyan-500/5 p-3 text-sm dark:bg-cyan-500/10">
                 {lastQuestion ? (
                   <p>
                     <span className="font-semibold text-foreground">Q: </span>
@@ -261,7 +261,7 @@ export default function LiveMeetingPage() {
               )}
             </Button>
             {suggestion ? (
-              <div className="rounded-xl border border-primary/25 bg-gradient-to-br from-primary/10 to-violet-500/5 p-4 text-sm leading-relaxed">
+              <div className="rounded-xl border border-primary/25 bg-gradient-to-br from-primary/10 to-cyan-500/10 p-4 text-sm leading-relaxed">
                 {suggestion}
               </div>
             ) : null}

@@ -1,6 +1,7 @@
 "use client";
 
 import { RecentMeetingsTable } from "@/components/dashboard/recent-meetings-table";
+import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -59,17 +60,13 @@ export default function MeetingsPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
-          Meetings
-        </h1>
-        <p className="mt-1 text-muted-foreground">
-          Upload recordings for AI analysis or open recent sessions.
-        </p>
-      </div>
+      <PageHeader
+        title="Meetings"
+        description="Upload recordings for AI analysis or open recent sessions."
+      />
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="border-dashed">
+        <Card className="glass-card border-dashed">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
               <Upload className="h-5 w-5 text-primary" />
@@ -114,7 +111,7 @@ export default function MeetingsPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="glass-card">
           <CardHeader>
             <CardTitle className="text-lg">Quick links</CardTitle>
             <CardDescription>Jump into recording or assistant.</CardDescription>
@@ -130,7 +127,7 @@ export default function MeetingsPage() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="glass-card">
         <CardHeader>
           <CardTitle>All meetings</CardTitle>
           <CardDescription>

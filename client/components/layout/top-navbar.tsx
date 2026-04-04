@@ -40,19 +40,19 @@ export function TopNavbar() {
 
   function handleSignOut() {
     logout();
-    router.push("/login");
+    router.push("/landing");
     router.refresh();
   }
 
   return (
     <TooltipProvider delayDuration={200}>
-      <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-4 border-b border-white/20 bg-white/45 px-4 shadow-soft backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/40 md:px-6 lg:px-8">
+      <header className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-4 border-b border-slate-200/80 bg-white/75 px-4 shadow-soft backdrop-blur-2xl dark:border-cyan-500/10 dark:bg-[#0a0c10]/80 md:px-6 lg:px-8">
         <div className="relative flex max-w-xl flex-1">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             type="search"
             placeholder="Search meetings, transcripts, actions…"
-            className="h-10 border-border/60 bg-white/70 pl-10 shadow-soft transition-all focus-visible:border-primary/40 focus-visible:shadow-soft-lg md:max-w-xl dark:bg-slate-900/50"
+            className="h-10 border-border/60 bg-white/85 pl-10 shadow-soft transition-all focus-visible:border-cyan-500/40 focus-visible:shadow-soft-lg md:max-w-xl dark:bg-slate-950/50"
           />
         </div>
         <div className="flex items-center gap-2">
@@ -62,11 +62,11 @@ export function TopNavbar() {
               <Button
                 variant="outline"
                 size="icon"
-                className="relative rounded-full border-border/60 bg-white/60 shadow-soft transition-all hover:scale-105 hover:shadow-soft-lg dark:bg-slate-900/50"
+                className="relative rounded-full border-border/60 bg-white/80 shadow-soft transition-all hover:scale-105 hover:shadow-soft-lg dark:bg-slate-950/50"
                 aria-label="Notifications"
               >
                 <Bell className="h-4 w-4" />
-                <span className="absolute right-1.5 top-1.5 h-2 w-2 animate-pulse-soft rounded-full bg-primary ring-2 ring-background" />
+                <span className="absolute right-1.5 top-1.5 h-2 w-2 animate-pulse-soft rounded-full bg-cyan-400 ring-2 ring-background dark:bg-cyan-400" />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Notifications</TooltipContent>
@@ -77,8 +77,8 @@ export function TopNavbar() {
                 type="button"
                 className="rounded-full outline-none ring-offset-background transition-transform hover:scale-105 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               >
-                <Avatar className="h-9 w-9 cursor-pointer border border-white/40 shadow-soft">
-                  <AvatarFallback className="bg-gradient-to-br from-primary via-violet-500 to-sky-500 font-display text-sm font-semibold text-white">
+                <Avatar className="h-9 w-9 cursor-pointer border border-cyan-500/30 shadow-soft">
+                  <AvatarFallback className="bg-gradient-to-br from-cyan-500 via-sky-500 to-blue-600 font-display text-sm font-semibold text-white">
                     {initials}
                   </AvatarFallback>
                 </Avatar>

@@ -113,12 +113,13 @@ export default function MeetingDetailPage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-2xl font-bold tracking-tight md:text-3xl">
+            <h1 className="font-display text-2xl font-bold tracking-tight md:text-3xl">
               {meeting.insights.title}
             </h1>
             <Badge variant="secondary">ID: {meeting.id}</Badge>
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <div className="mt-3 h-0.5 w-14 rounded-full bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 opacity-90 dark:from-cyan-400 dark:via-sky-400 dark:to-blue-500" />
+          <p className="mt-3 text-sm text-muted-foreground">
             Summary, timestamped key moments, action items, and risks.
           </p>
         </div>

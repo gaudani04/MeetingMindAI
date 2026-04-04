@@ -32,10 +32,10 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="w-full max-w-[420px] animate-fade-in">
+    <div className="w-full max-w-[420px] animate-in fade-in slide-in-from-bottom-4 fill-mode-both duration-500 ease-out motion-reduce:animate-none">
       <div className="glass-panel rounded-2xl p-8 shadow-soft-lg ring-1 ring-white/40 dark:ring-white/10">
         <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 via-primary to-sky-500 text-white shadow-glow transition-transform duration-300 hover:scale-105">
+          <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl border border-cyan-400/30 bg-gradient-to-br from-cyan-600 via-sky-500 to-blue-600 text-white shadow-glow transition-transform duration-300 hover:scale-105">
             <Sparkles className="h-7 w-7" aria-hidden />
           </div>
           <h1 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
@@ -95,7 +95,7 @@ export default function SignupPage() {
           <Button
             type="submit"
             disabled={loading}
-            className="group h-11 w-full rounded-xl bg-gradient-to-r from-violet-600 to-primary text-base font-semibold shadow-glow transition-all hover:scale-[1.01] hover:shadow-soft-lg active:scale-[0.99]"
+            className="group h-11 w-full rounded-xl bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 text-base font-semibold text-white shadow-glow transition-all hover:scale-[1.01] hover:shadow-soft-lg active:scale-[0.99]"
           >
             {loading ? "Creating account…" : "Get started"}
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -109,6 +109,13 @@ export default function SignupPage() {
             className="font-semibold text-primary underline-offset-4 transition-colors hover:text-primary/80 hover:underline"
           >
             Sign in
+          </Link>
+          <span className="mx-2 text-muted-foreground/50">·</span>
+          <Link
+            href="/landing"
+            className="font-medium text-muted-foreground underline-offset-4 transition-colors hover:text-foreground hover:underline"
+          >
+            Product overview
           </Link>
         </p>
       </div>

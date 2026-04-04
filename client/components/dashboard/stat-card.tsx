@@ -25,15 +25,15 @@ export function StatCard({
   return (
     <Card
       className={cn(
-        "group overflow-hidden border-white/40 bg-white/75 shadow-soft-lg backdrop-blur-md transition-all duration-300 hover:-translate-y-1 hover:shadow-glow dark:border-white/10 dark:bg-slate-900/50",
+        "group overflow-hidden border-l-[3px] border-l-cyan-500/45 border-white/40 bg-white/75 shadow-soft-lg backdrop-blur-md transition-all duration-300 ease-out motion-safe:hover:-translate-y-0.5 hover:shadow-glow hover:ring-1 hover:ring-cyan-500/20 dark:border-white/[0.08] dark:bg-white/[0.04] dark:hover:ring-cyan-400/25",
         gradient &&
-          "border-primary/25 bg-gradient-to-br from-white/90 via-white/70 to-violet-500/10 dark:from-slate-900/80 dark:via-slate-900/60 dark:to-violet-500/15",
+          "border-primary/25 bg-gradient-to-br from-white/92 via-white/72 to-cyan-500/[0.1] dark:from-slate-900/85 dark:via-slate-900/65 dark:to-cyan-950/25",
         className
       )}
     >
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <span className="text-sm font-medium text-muted-foreground">{title}</span>
-        <div className="rounded-xl bg-gradient-to-br from-primary/15 to-violet-500/15 p-2.5 text-primary shadow-inner transition-transform duration-300 group-hover:scale-110 dark:from-primary/25 dark:to-violet-500/20">
+        <div className="rounded-xl bg-gradient-to-br from-cyan-500/15 to-blue-600/15 p-2.5 text-primary shadow-inner transition-transform duration-300 ease-out group-hover:scale-110 dark:from-cyan-400/20 dark:to-blue-600/20">
           <Icon className="h-4 w-4" aria-hidden />
         </div>
       </CardHeader>

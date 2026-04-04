@@ -4,48 +4,50 @@
 
 @layer base {
   :root {
-    --background: 230 40% 99%;
+    /* Light: cool engineering gray + neon cyan accent (aligned with /landing) */
+    --background: 220 18% 97%;
     --foreground: 222 47% 8%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 8%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 8%;
-    --primary: 252 59% 52%;
+    --primary: 187 88% 38%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 230 32% 96%;
-    --secondary-foreground: 222 40% 18%;
-    --muted: 230 26% 94%;
-    --muted-foreground: 225 12% 42%;
-    --accent: 258 48% 96%;
-    --accent-foreground: 252 45% 28%;
+    --secondary: 220 16% 94%;
+    --secondary-foreground: 222 35% 14%;
+    --muted: 220 14% 92%;
+    --muted-foreground: 220 12% 38%;
+    --accent: 187 40% 94%;
+    --accent-foreground: 187 70% 22%;
     --destructive: 0 84% 58%;
     --destructive-foreground: 0 0% 100%;
-    --border: 230 20% 90%;
-    --input: 230 20% 90%;
-    --ring: 252 59% 52%;
-    --radius: 0.85rem;
+    --border: 220 14% 88%;
+    --input: 220 14% 88%;
+    --ring: 187 88% 38%;
+    --radius: 0.875rem;
   }
 
   .dark {
-    --background: 230 35% 6%;
-    --foreground: 210 40% 98%;
-    --card: 232 38% 10%;
-    --card-foreground: 210 40% 98%;
-    --popover: 232 38% 10%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 258 65% 68%;
-    --primary-foreground: 230 35% 8%;
-    --secondary: 232 32% 16%;
-    --secondary-foreground: 210 40% 96%;
-    --muted: 232 28% 16%;
-    --muted-foreground: 220 14% 62%;
-    --accent: 258 35% 22%;
-    --accent-foreground: 258 90% 96%;
-    --destructive: 0 62% 48%;
+    /* Charcoal / midnight + luminous cyan (landing product shell) */
+    --background: 220 22% 6%;
+    --foreground: 210 30% 98%;
+    --card: 220 20% 9%;
+    --card-foreground: 210 30% 98%;
+    --popover: 220 20% 9%;
+    --popover-foreground: 210 30% 98%;
+    --primary: 187 85% 52%;
+    --primary-foreground: 220 30% 8%;
+    --secondary: 220 18% 12%;
+    --secondary-foreground: 210 25% 95%;
+    --muted: 220 16% 12%;
+    --muted-foreground: 215 14% 58%;
+    --accent: 187 35% 14%;
+    --accent-foreground: 187 90% 92%;
+    --destructive: 0 58% 50%;
     --destructive-foreground: 0 0% 100%;
-    --border: 232 28% 18%;
-    --input: 232 28% 18%;
-    --ring: 258 65% 68%;
+    --border: 220 16% 15%;
+    --input: 220 16% 15%;
+    --ring: 187 85% 52%;
   }
 
   * {
@@ -54,7 +56,7 @@
 
   body {
     background-color: transparent !important;
-    /* @apply bg-background text-foreground antialiased; */
+    @apply text-foreground antialiased;
 
     ::-webkit-scrollbar {
       display: none;
@@ -63,29 +65,56 @@
 }
 
 @layer utilities {
+  /* Base wash — subtle cyan/sky/purple depth (pairs with AppShellBackground) */
   .bg-page-gradient {
     background:
-      radial-gradient(ellipse 1400px 700px at 0% -15%,
-        hsl(252 59% 52% / 0.11),
+      radial-gradient(ellipse 1200px 600px at 0% -10%,
+        hsl(187 90% 45% / 0.08),
         transparent 55%),
-      radial-gradient(ellipse 1000px 500px at 100% 0%,
-        hsl(280 65% 55% / 0.09),
+      radial-gradient(ellipse 900px 480px at 100% 0%,
+        hsl(280 55% 50% / 0.06),
         transparent 50%),
-      radial-gradient(ellipse 800px 400px at 50% 100%,
-        hsl(210 90% 55% / 0.06),
+      radial-gradient(ellipse 700px 400px at 50% 100%,
+        hsl(215 90% 50% / 0.05),
         transparent 45%),
       hsl(var(--background));
   }
 
   .dark .bg-page-gradient {
     background:
-      radial-gradient(ellipse 1200px 600px at 10% -10%,
-        hsl(258 55% 45% / 0.22),
+      radial-gradient(ellipse 1100px 560px at 8% -8%,
+        hsl(187 70% 42% / 0.14),
         transparent 55%),
-      radial-gradient(ellipse 900px 450px at 95% 5%,
-        hsl(280 50% 40% / 0.15),
+      radial-gradient(ellipse 880px 440px at 96% 4%,
+        hsl(280 45% 45% / 0.1),
+        transparent 50%),
+      radial-gradient(ellipse 600px 380px at 50% 100%,
+        hsl(220 60% 38% / 0.08),
         transparent 50%),
       hsl(var(--background));
+  }
+
+  .bg-app-base {
+    @apply bg-gradient-to-b from-[#f0f2f5] via-[#e8eaef] to-[#dfe3e9] text-slate-900;
+  }
+
+  .dark .bg-app-base {
+    @apply from-[#060708] via-[#0a0c10] to-[#050608] text-slate-100;
+  }
+
+  /* Subtle grid — high-end SaaS depth without noise */
+  .bg-grid-fade {
+    background-image:
+      linear-gradient(to right, hsl(var(--foreground) / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 0%, black 15%, transparent 70%);
+  }
+
+  .dark .bg-grid-fade {
+    background-image:
+      linear-gradient(to right, hsl(0 0% 100% / 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(0 0% 100% / 0.05) 1px, transparent 1px);
   }
 
   .drag-region {
@@ -99,38 +128,31 @@
   }
 
   .glass-panel {
-    @apply border border-white/20 bg-white/55 shadow-soft backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/45;
+    @apply border border-slate-200/80 bg-white/70 shadow-soft shadow-inner backdrop-blur-xl dark:border-white/[0.08] dark:bg-slate-950/45 dark:shadow-inner;
   }
 
   .glass-sidebar {
-    @apply border-r border-white/25 bg-white/40 shadow-soft backdrop-blur-2xl dark:border-white/10 dark:bg-slate-950/50;
+    @apply border-r border-slate-200/70 bg-white/55 shadow-soft backdrop-blur-2xl dark:border-cyan-500/10 dark:bg-[#0a0c10]/75;
   }
 
   .glass-card {
-    @apply border border-white/30 bg-white/70 shadow-soft-lg backdrop-blur-md dark:border-white/10 dark:bg-slate-900/55;
+    @apply border border-slate-200/90 bg-white/80 shadow-soft-lg backdrop-blur-md dark:border-white/[0.08] dark:bg-white/[0.04];
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-[hsl(252,59%,48%)] via-[hsl(280,55%,52%)] to-[hsl(210,90%,52%)] bg-clip-text text-transparent dark:from-[hsl(258,65%,72%)] dark:via-[hsl(280,60%,68%)] dark:to-[hsl(210,85%,65%)];
+    @apply bg-gradient-to-r from-cyan-600 via-sky-500 to-blue-600 bg-clip-text text-transparent dark:from-cyan-300 dark:via-sky-300 dark:to-blue-400;
   }
-
 
   .shimmer {
-    background: linear-gradient(90deg,
-        hsl(var(--muted)) 0%,
-        hsl(var(--muted-foreground) / 0.12) 50%,
-        hsl(var(--muted)) 100%);
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted)) 0%,
+      hsl(var(--primary) / 0.12) 45%,
+      hsl(var(--muted-foreground) / 0.14) 50%,
+      hsl(var(--primary) / 0.1) 55%,
+      hsl(var(--muted)) 100%
+    );
     background-size: 200% 100%;
-    animation: shimmer 1.4s ease-in-out infinite;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: 200% 0;
-    }
-
-    100% {
-      background-position: -200% 0;
-    }
+    @apply animate-shimmer;
   }
 }
