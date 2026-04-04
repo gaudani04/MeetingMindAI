@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { useMeetings } from "@/contexts/meeting-context";
 import { API_BASE } from "@/lib/config";
-import type { MeetingRecord } from "@/lib/types/meeting";
+import type { MeetingRecord, TranscriptHighlight } from "@/lib/types/meeting";
 import axios from "axios";
 import { Loader2, Upload } from "lucide-react";
 import Link from "next/link";
@@ -32,10 +32,12 @@ export default function MeetingsPage() {
       const data = res.data as {
         id: string;
         insights: MeetingRecord["insights"];
+        highlights?: TranscriptHighlight[];
       };
       const record: MeetingRecord = {
         id: String(data.id),
         insights: data.insights,
+        highlights: data.highlights ?? [],
         createdAt: new Date().toISOString(),
         status: "completed",
         durationMin: Math.round(file.size / (128 * 1024)) || undefined,

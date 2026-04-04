@@ -12,10 +12,39 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useMeetings } from "@/contexts/meeting-context";
-import { AlertTriangle, Check, Download } from "lucide-react";
+import {
+  AlertTriangle,
+  Check,
+  Download,
+  Gavel,
+  Lightbulb,
+  MessageSquare,
+} from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
+import type { TranscriptHighlight } from "@/lib/types/meeting";
+
+function formatTimeRange(startSec: number, endSec: number) {
+  const fmt = (t: number) => {
+    const s = Math.max(0, t);
+    const m = Math.floor(s / 60);
+    const r = Math.floor(s % 60);
+    return `${m}:${r.toString().padStart(2, "0")}`;
+  };
+  return `${fmt(startSec)} – ${fmt(endSec)}`;
+}
+
+function highlightIcon(type: TranscriptHighlight["type"]) {
+  switch (type) {
+    case "decision":
+      return Gavel;
+    case "insight":
+      return Lightbulb;
+    default:
+      return MessageSquare;
+  }
+}
 
 export default function MeetingDetailPage() {
   const params = useParams();
@@ -29,11 +58,23 @@ export default function MeetingDetailPage() {
 
   const handleExport = useCallback(() => {
     if (!meeting) return;
-    const text = [
+    const lines: string[] = [
       `Meeting: ${meeting.insights.title}`,
       "",
       "Summary:",
       ...meeting.insights.summary.map((s) => `• ${s}`),
+    ];
+    const hl = meeting.highlights ?? [];
+    if (hl.length > 0) {
+      lines.push("", "Key moments:");
+      for (const h of hl) {
+        lines.push(
+          `• [${formatTimeRange(h.start_sec, h.end_sec)}] (${h.type}) ${h.title}: ${h.summary}`
+        );
+      }
+    }
+    const text = [
+      ...lines,
       "",
       "Action items:",
       ...meeting.insights.action_items.map(
@@ -78,7 +119,7 @@ export default function MeetingDetailPage() {
             <Badge variant="secondary">ID: {meeting.id}</Badge>
           </div>
           <p className="mt-1 text-sm text-muted-foreground">
-            Generated summary, action items, and risk highlights.
+            Summary, timestamped key moments, action items, and risks.
           </p>
         </div>
         <Button
@@ -110,6 +151,66 @@ export default function MeetingDetailPage() {
               <li key={i}>{s}</li>
             ))}
           </ul>
+        </CardContent>
+      </Card>
+
+      <Card className="border-primary/20 bg-gradient-to-br from-primary/[0.06] to-transparent dark:from-primary/10">
+        <CardHeader>
+          <CardTitle className="text-lg">Key moments</CardTitle>
+          <p className="text-sm font-normal text-muted-foreground">
+            Decisions, important discussions, and insights tied to timestamps in
+            the recording.
+          </p>
+        </CardHeader>
+        <CardContent>
+          {(meeting.highlights ?? []).length === 0 ? (
+            <p className="text-sm text-muted-foreground">
+              No key moments were extracted for this meeting.
+            </p>
+          ) : (
+            <ul className="space-y-4">
+              {(meeting.highlights ?? []).map((h, i) => {
+                const Icon = highlightIcon(h.type);
+                return (
+                  <li
+                    key={`${h.start_sec}-${h.end_sec}-${i}`}
+                    className="rounded-xl border border-border/80 bg-card/80 p-4 shadow-soft transition-shadow hover:shadow-soft-lg"
+                  >
+                    <div className="flex flex-wrap items-start gap-3">
+                      <div className="mt-0.5 rounded-lg bg-primary/10 p-2 text-primary">
+                        <Icon className="h-4 w-4" />
+                      </div>
+                      <div className="min-w-0 flex-1 space-y-2">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <Badge variant="outline" className="font-mono text-xs">
+                            {formatTimeRange(h.start_sec, h.end_sec)}
+                          </Badge>
+                          <Badge
+                            variant={
+                              h.type === "decision"
+                                ? "default"
+                                : h.type === "insight"
+                                  ? "secondary"
+                                  : "outline"
+                            }
+                            className="capitalize"
+                          >
+                            {h.type}
+                          </Badge>
+                        </div>
+                        <h3 className="font-semibold leading-snug text-foreground">
+                          {h.title}
+                        </h3>
+                        <p className="text-sm leading-relaxed text-muted-foreground">
+                          {h.summary}
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </CardContent>
       </Card>
 

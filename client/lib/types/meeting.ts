@@ -4,6 +4,18 @@ export type ActionItem = {
   deadline: string;
 };
 
+export type TranscriptHighlightType = "decision" | "discussion" | "insight";
+
+export type TranscriptHighlight = {
+  type: TranscriptHighlightType;
+  /** Start time in seconds (from transcription segments). */
+  start_sec: number;
+  /** End time in seconds (inclusive range from segments). */
+  end_sec: number;
+  title: string;
+  summary: string;
+};
+
 export type MeetingInsights = {
   title: string;
   summary: string[];
@@ -14,6 +26,8 @@ export type MeetingInsights = {
 export type MeetingRecord = {
   id: string;
   insights: MeetingInsights;
+  /** AI-detected key moments with timestamps from the recording. */
+  highlights?: TranscriptHighlight[];
   createdAt: string;
   durationMin?: number;
   status?: "completed" | "processing" | "live";

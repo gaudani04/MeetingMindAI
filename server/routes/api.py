@@ -1,6 +1,10 @@
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
 from services.transcriber import transcribe_audio_file
-from services.llm import generate_meeting_insights, chat_with_notes
+from services.llm import (
+    generate_meeting_insights,
+    generate_transcript_highlights,
+    chat_with_notes,
+)
 from utils.firebase_db import save_meeting, get_meeting
 from services.assistant_service import get_answer
 from pydantic import BaseModel
@@ -31,18 +35,22 @@ async def upload_audio(file: UploadFile = File(...)):
         f.write(await file.read())
     
     # 1. Transcribe
-    transcript = transcribe_audio_file(temp_file.name)
+    transcribed = transcribe_audio_file(temp_file.name)
     os.remove(temp_file.name)
-    
+    transcript = transcribed["text"]
+    segments = transcribed["segments"]
+
     # 2. Analyze
     insights = generate_meeting_insights(transcript)
-    
+    highlights = generate_transcript_highlights(transcript, segments)
+
     # 3. Save
     meeting_id = str(uuid.uuid4())
     meeting_data = {
         "id": meeting_id,
         "transcript": transcript,
-        "insights": insights
+        "insights": insights,
+        "highlights": highlights,
     }
     save_meeting(meeting_id, meeting_data)
     

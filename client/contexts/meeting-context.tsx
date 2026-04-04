@@ -44,6 +44,32 @@ const seedMeetings: MeetingRecord[] = [
         "API rate limits on peak demo days may need caching.",
       ],
     },
+    highlights: [
+      {
+        type: "decision",
+        start_sec: 120,
+        end_sec: 195,
+        title: "April focus: transcription accuracy",
+        summary:
+          "The team agreed to prioritize improving live transcription before expanding other features.",
+      },
+      {
+        type: "discussion",
+        start_sec: 300,
+        end_sec: 420,
+        title: "Design partner beta scope",
+        summary:
+          "Discussed which workflows to include in the first beta and how feedback will be collected.",
+      },
+      {
+        type: "insight",
+        start_sec: 540,
+        end_sec: 600,
+        title: "Rate limits on demo days",
+        summary:
+          "Noted that traffic spikes during demos could hit API limits without caching.",
+      },
+    ],
   },
   {
     id: "demo-2",
