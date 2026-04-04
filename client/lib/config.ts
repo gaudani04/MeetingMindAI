@@ -1,3 +1,9 @@
+// export const API_BASE =
+//   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
+// export const WS_TRANSCRIBE =
+//   process.env.NEXT_PUBLIC_WS_TRANSCRIBE_URL ?? "ws://localhost:8000/ws/transcribe";
+
 export const API_BASE =
   process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
 
