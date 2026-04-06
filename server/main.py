@@ -5,9 +5,21 @@ from websocket import audio
 
 app = FastAPI(title="Smart Meeting Notes AI")
 
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"],
+#     allow_credentials=True,
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+# )
+origins = [
+    "https://meeting-mind-ai-sand.vercel.app",
+    "http://localhost:3000",  # for local dev
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=origins,   # ✅ specific origins only
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
