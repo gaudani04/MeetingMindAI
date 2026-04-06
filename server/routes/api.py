@@ -5,7 +5,7 @@ from services.llm import (
     generate_transcript_highlights,
     chat_with_notes,
 )
-from utils.firebase_db import save_meeting, get_meeting
+from server.utils.firebase_db import save_meeting, get_meeting
 from services.assistant_service import get_answer
 from pydantic import BaseModel
 import tempfile

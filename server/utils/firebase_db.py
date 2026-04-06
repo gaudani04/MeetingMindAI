@@ -49,3 +49,11 @@ if firebase_json:
 else:
     print("Firebase NOT connected ❌")
     db = None
+
+
+def save_meeting(meeting_id, data):
+    if db: db.collection("meetings").document(meeting_id).set(data)
+
+def get_meeting(meeting_id):
+    if db: return db.collection("meetings").document(meeting_id).get().to_dict()
+ 
